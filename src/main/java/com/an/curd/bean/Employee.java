@@ -25,6 +25,16 @@ public class Employee {
                 '}';
     }
 
+    public Employee(String empName, Integer gender, String email, Integer dId) {
+        this.empName = empName;
+        this.gender = gender;
+        this.email = email;
+        this.dId = dId;
+    }
+
+    public Employee() {
+    }
+
     public Department getDepartment() {
         return department;
     }

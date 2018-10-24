@@ -25,6 +25,14 @@ public class Department {
                 '}';
     }
 
+    public Department() {
+    }
+
+    public Department(Integer deptId, String deptName) {
+        this.deptId = deptId;
+        this.deptName = deptName;
+    }
+
     public void setDeptName(String deptName) {
         this.deptName = deptName == null ? null : deptName.trim();
     }
