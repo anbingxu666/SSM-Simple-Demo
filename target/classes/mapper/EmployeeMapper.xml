@@ -81,7 +81,7 @@
     emp_id, emp_name, gender, email, d_id
   </sql>
   <sql id="WithDept_Column_List">
-  e.emp_id,e.emp_name,e.gender,e.email,e.d_id,d.dept_id,d.dept_name
+  e.emp_id ,e.emp_name ,e.gender,e.email,e.d_id ,d.dept_id ,d.dept_name
   </sql>
 
   <!---->
@@ -111,7 +111,7 @@
 
     -->
    <!--查询部员带dept信息-->
-  <select id="selectByExampleWithDept">
+  <select id="selectByExampleWithDept" resultMap="WithDeptResultMap">
     select
     <if test="distinct">
       distinct
