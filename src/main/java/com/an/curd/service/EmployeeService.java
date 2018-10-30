@@ -11,6 +11,13 @@ import java.util.List;
 public class EmployeeService {
     @Autowired
     private EmployeeMapper employeeMapper;
+
+    public int save(Employee e) {
+        int i = employeeMapper.insertSelective(e);
+        return i;
+    }
+
+
     public List<Employee> getAllEmps(){
         return employeeMapper.selectByExampleWithDept(null);
     }

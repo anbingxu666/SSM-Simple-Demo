@@ -6,9 +6,11 @@ import com.an.curd.service.EmployeeService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.objenesis.instantiator.sun.MagicInstantiator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -41,4 +43,13 @@ public class EmployeeController {
 //        model.addAttribute("pageInfo",pageInfo);
 //        return "list";
 //    }
+
+
+//    保存员工
+    @ResponseBody
+    @RequestMapping(value = "/emp",method = RequestMethod.POST)
+    public Result add(Employee e){
+        employeeService.save(e);
+        return Result.success().add("status","添加员工成功");
+    }
 }

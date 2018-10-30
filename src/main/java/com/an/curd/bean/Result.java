@@ -6,9 +6,9 @@ import java.util.Map;
 public class Result {
     private Integer code;
     private String msg;
-    private Map<String,Object> map = new HashMap<>();
+    private Map<String,Object> data = new HashMap<>();
     public Result add(String key,Object value){
-        this.map.put(key,value);
+        this.data.put(key,value);
         return this;
     }
     public static Result success(){
@@ -39,11 +39,11 @@ public class Result {
         this.msg = msg;
     }
 
-    public Map<String, Object> getMap() {
-        return map;
+    public Map<String, Object> getData() {
+        return data;
     }
 
-    public void setMap(Map<String, Object> map) {
-        this.map = map;
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 }
