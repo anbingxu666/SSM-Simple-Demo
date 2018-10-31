@@ -122,7 +122,7 @@
       <include refid="Example_Where_Clause"/>
     </if>
     <if test="orderByClause != null">
-      order by ${orderByClause}
+      order by e.emp_id
     </if>
   </select>
   <select id="selectByPrimaryKeyWithDept" resultMap="WithDeptResultMap">

@@ -46,7 +46,7 @@
                         <label class="col-sm-2 control-label">email</label>
                         <div class="col-sm-10">
                             <input type="text" name="email" class="form-control" id="email_add_input"
-                                   placeholder="email@atguigu.com">
+                                   placeholder="email@abx.com">
                             <span class="help-block"></span>
                         </div>
                     </div>
@@ -336,7 +336,8 @@
 
         //2、校验邮箱信息
         var email = $("#email_add_input").val();
-        var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        // var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        var regEmail =new RegExp("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$");
         if(!regEmail.test(email)){
             //alert("邮箱格式不正确");
             //应该清空这个元素之前的样式
@@ -387,14 +388,14 @@
     $("#emp_save_btn").click(function () {
         //1、模态框中填写的表单数据提交给服务器进行保存
         //1、先对要提交给服务器的数据进行校验
-        // if (!validate_add_form()) {
-        //     return false;
-        // }
-        // ;
-        // //1、判断之前的ajax用户名校验是否成功。如果成功。
-        // if ($(this).attr("ajax-va") == "error") {
-        //     return false;
-        // }
+        if (!validate_add_form()) {
+            return false;
+        }
+        ;
+        //1、判断之前的ajax用户名校验是否成功。如果成功。
+        if ($(this).attr("ajax-va") == "error") {
+            return false;
+        }
 
         //2、发送ajax请求保存员工
         $.ajax({
@@ -415,14 +416,14 @@
                     //显示失败信息
                     console.log(result);
                     //有哪个字段的错误信息就显示哪个字段的；
-                    // if (undefined != result.data.errorFields.email) {
-                    //     //显示邮箱错误信息
-                    //     show_validate_msg("#email_add_input", "error", result.data.errorFields.email);
-                    // }
-                    // if (undefined != result.data.errorFields.empName) {
-                    //     //显示员工名字的错误信息
-                    //     show_validate_msg("#empName_add_input", "error", result.data.errorFields.empName);
-                    // }
+                    if (undefined != result.data.errorFields.email) {
+                        //显示邮箱错误信息
+                        show_validate_msg("#email_add_input", "error", result.data.errorFields.email);
+                    }
+                    if (undefined != result.data.errorFields.empName) {
+                        //显示员工名字的错误信息
+                        show_validate_msg("#empName_add_input", "error", result.data.errorFields.empName);
+                    }
                 }
             }
         });
