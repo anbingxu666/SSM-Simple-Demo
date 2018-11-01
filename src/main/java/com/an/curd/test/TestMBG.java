@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TestMBG {
+    //使用mybatis geneator生成代码
     public static void main(String[] args)throws Exception {
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;

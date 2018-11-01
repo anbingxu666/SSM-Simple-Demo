@@ -54,12 +54,7 @@ public class MVCTest {
 
 
         List<Employee> list = pageInfo.getList();
-        list.forEach((x) -> System.out.println(x));
-        list.forEach((x) -> System.out.println(x));
-        list.forEach((x) -> System.out.println(x));
-        list.forEach((x) -> System.out.println(x));
-        list.forEach((x) -> System.out.println(x));
-        list.forEach((x) -> System.out.println(x));
+
     }
 
 }

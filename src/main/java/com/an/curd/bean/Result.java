@@ -11,6 +11,10 @@ public class Result {
         this.data.put(key,value);
         return this;
     }
+    public static Result fail(){
+        Result result = new Result(401,"失败");
+        return result;
+    }
     public static Result success(){
 
         Result result = new Result(100,"成功");
