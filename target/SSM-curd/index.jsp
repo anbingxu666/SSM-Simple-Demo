@@ -23,6 +23,61 @@
     <![endif]-->
 </head>
 <body>
+
+<!-- 员工修改的模态框 -->
+<div class="modal fade" id="empUpdateModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">员工修改</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">empName</label>
+                        <div class="col-sm-10">
+                            <p class="form-control-static" id="empName_update_static"></p>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">email</label>
+                        <div class="col-sm-10">
+                            <input type="text" name="email" class="form-control" id="email_update_input"
+                                   placeholder="email@abx.com">
+                            <span class="help-block"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">gender</label>
+                        <div class="col-sm-10">
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="gender1_update_input" value="1" checked="checked">
+                                男
+                            </label>
+                            <label class="radio-inline">
+                                <input type="radio" name="gender" id="gender2_update_input" value="0"> 女
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">deptName</label>
+                        <div class="col-sm-4">
+                            <!-- 部门提交部门id即可 -->
+                            <select class="form-control" name="dId">
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button type="button" class="btn btn-primary" id="emp_update_btn">更新</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- 员工添加的模态框 -->
 <div class="modal fade" id="empAddModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -99,19 +154,26 @@
     <br/>
 
     <%--显示表格--%>
+    <!-- 显示表格数据 -->
     <div class="row">
         <div class="col-md-12">
             <table class="table table-hover" id="emps_table">
+                <thead>
                 <tr>
-                    <td>#</td>
-                    <td>empName</td>
-                    <td>gender</td>
-                    <td>email</td>
-                    <td>deptName</td>
-                    <td>操作</td>
+                    <%--<th>--%>
+                        <%--<input type="checkbox" id="check_all"/>--%>
+                    <%--</th>--%>
+                    <th>#</th>
+                    <th>empName</th>
+                    <th>gender</th>
+                    <th>email</th>
+                    <th>deptName</th>
+                    <th>操作</th>
                 </tr>
+                </thead>
+                <tbody>
 
-
+                </tbody>
             </table>
         </div>
     </div>
@@ -123,7 +185,7 @@
         </div>
         <!-- 分页条信息 -->
         <div class="col-md-6" id="page_nav_area">
-            fwadsf sad
+
         </div>
     </div>
 </div>
@@ -134,7 +196,7 @@
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    <%--通过ajax请求 获取数据--%>
+    <%--&lt;%&ndash;通过ajax请求 获取数据&ndash;%&gt;--%>
     <%--$(function () {--%>
     <%--$.ajax({--%>
     <%--url: "${APP_PATH}/emps",--%>
@@ -322,64 +384,66 @@
     }
 
     //校验表单数据
-    function validate_add_form(){
+    function validate_add_form() {
         //1、拿到要校验的数据，使用正则表达式
         var empName = $("#empName_add_input").val();
         var regName = /(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})/;
-        if(!regName.test(empName)){
+        if (!regName.test(empName)) {
             //alert("用户名可以是2-5位中文或者6-16位英文和数字的组合");
             show_validate_msg("#empName_add_input", "error", "用户名可以是2-5位中文或者6-16位英文和数字的组合");
             return false;
-        }else{
+        } else {
             show_validate_msg("#empName_add_input", "success", "");
-        };
+        }
+        ;
 
         //2、校验邮箱信息
         var email = $("#email_add_input").val();
         // var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-        var regEmail =new RegExp("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$");
-        if(!regEmail.test(email)){
+        var regEmail = new RegExp("^[a-z0-9A-Z]+[- | a-z0-9A-Z . _]+@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-z]{2,}$");
+        if (!regEmail.test(email)) {
             //alert("邮箱格式不正确");
             //应该清空这个元素之前的样式
             show_validate_msg("#email_add_input", "error", "邮箱格式不正确");
             /* $("#email_add_input").parent().addClass("has-error");
             $("#email_add_input").next("span").text("邮箱格式不正确"); */
             return false;
-        }else{
+        } else {
             show_validate_msg("#email_add_input", "success", "");
         }
         return true;
     }
 
     //显示校验结果的提示信息
-    function show_validate_msg(ele,status,msg){
+    function show_validate_msg(ele, status, msg) {
         //清除当前元素的校验状态
         $(ele).parent().removeClass("has-success has-error");
         $(ele).next("span").text("");
-        if("success"==status){
+        if ("success" == status) {
             $(ele).parent().addClass("has-success");
             $(ele).next("span").text(msg);
-        }else if("error" == status){
+        } else if ("error" == status) {
             $(ele).parent().addClass("has-error");
             $(ele).next("span").text(msg);
         }
     }
 
     //校验用户名是否可用
-    $("#empName_add_input").change(function(){
+    $("#empName_add_input").change(function () {
         //发送ajax请求校验用户名是否可用
         var empName = this.value;
         $.ajax({
-            url:"${APP_PATH}/checkuser",
-            data:"empName="+empName,
-            type:"POST",
-            success:function(result){
-                if(result.code==100){
-                    show_validate_msg("#empName_add_input","success","用户名可用");
-                    $("#emp_save_btn").attr("ajax-va","success");
-                }else{
-                    show_validate_msg("#empName_add_input","error",result.data.va_msg);
-                    $("#emp_save_btn").attr("ajax-va","error");
+            url: "${APP_PATH}/check",
+            data: "empName=" + empName,
+            type: "POST",
+            success: function (result) {
+                // console.log(result)
+                if (result.code == 100) {
+                    show_validate_msg("#empName_add_input", "success", "用户名可用");
+                    $("#emp_save_btn").attr("ajax-va", "success");
+                } else {
+                    show_validate_msg("#empName_add_input", "error", result.data.valid);
+                    $("#emp_save_btn").attr("ajax-va", "error");
                 }
             }
         });
@@ -391,7 +455,7 @@
         if (!validate_add_form()) {
             return false;
         }
-        ;
+
         //1、判断之前的ajax用户名校验是否成功。如果成功。
         if ($(this).attr("ajax-va") == "error") {
             return false;
@@ -429,6 +493,64 @@
         });
     });
 
+    //为修改按钮绑定事件
+    $(document).on("click", ".edit_btn", function () {
+        // alert("edit");
+        //1、查出部门信息，并显示部门列表
+        getDepts("#empUpdateModal select");
+        //2、查出员工信息，显示员工信息
+        getEmp($(this).attr("edit-id"));
+        //3、把员工的id传递给模态框的更新按钮
+        $("#emp_update_btn").attr("edit-id", $(this).attr("edit-id"));
+        $("#empUpdateModal").modal({
+            backdrop: "static"
+        });
+    });
+
+
+    //查询某个员工的信息
+    function getEmp(id) {
+        $.ajax({
+            url: "${APP_PATH}/emp/" + id,
+            type: "GET",
+            success: function (result) {
+                //console.log(result);
+                var empData = result.data.employee;
+                $("#empName_update_static").text(empData.empName);
+                $("#email_update_input").val(empData.email);
+                $("#empUpdateModal input[name=gender]").val([empData.gender]);
+                $("#empUpdateModal select").val([empData.dId]);
+            }
+        });
+    }
+
+    //点击更新，更新员工信息
+    $("#emp_update_btn").click(function () {
+        //验证邮箱是否合法
+        //1、校验邮箱信息
+        var email = $("#email_update_input").val();
+        var regEmail = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+        if (!regEmail.test(email)) {
+            show_validate_msg("#email_update_input", "error", "邮箱格式不正确");
+            return false;
+        } else {
+            show_validate_msg("#email_update_input", "success", "");
+        }
+
+        //2、发送ajax请求保存更新的员工数据
+        $.ajax({
+            url: "${APP_PATH}/emp/" + $(this).attr("edit-id"),
+            type: "PUT",
+            data: $("#empUpdateModal form").serialize(),
+            success: function (result) {
+                //alert(result.msg);
+                //1、关闭对话框
+                $("#empUpdateModal").modal("hide");
+                //2、回到本页面
+                to_page(currentPage);
+            }
+        });
+    });
 
 </script>
 </body>

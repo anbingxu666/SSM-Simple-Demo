@@ -30,4 +30,13 @@ public class EmployeeService {
         long count = employeeMapper.countByExample(employeeExample);
         return count==0;
     }
+    public Employee getOne(int id){
+        Employee employee = employeeMapper.selectByPrimaryKey(id);
+        return employee;
+    }
+    public int updateOne(Employee employee){
+        int insert = employeeMapper.updateByPrimaryKeySelective(employee);
+        return insert;
+
+    }
 }
