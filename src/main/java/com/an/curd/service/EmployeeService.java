@@ -39,4 +39,16 @@ public class EmployeeService {
         return insert;
 
     }
+
+    public void deleteOne(int id) {
+        employeeMapper.deleteByPrimaryKey(id);
+        return;
+    }
+    public void deleteMany(String ids){
+        String[] split = ids.split("-");
+        for(String x:split){
+            int id = Integer.parseInt(x);
+            deleteOne(id);
+        }
+    }
 }

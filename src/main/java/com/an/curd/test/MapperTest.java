@@ -26,20 +26,20 @@ public class MapperTest {
     private SqlSession sqlSession;
     @Test
     public void testCurd(){
-//        Employee employee = employeeMapper.selectByPrimaryKeyWithDept(2);
-//        System.out.println(employee);
-//        departmentMapper.insert(new Department(null,"卫生部"));
-//        departmentMapper.insert(new Department(null,"产品部"));
+        Employee employee = employeeMapper.selectByPrimaryKeyWithDept(2);
+        System.out.println(employee);
+        departmentMapper.insert(new Department(null,"卫生部"));
+        departmentMapper.insert(new Department(null,"产品部"));
 
-//        employeeMapper.insert(new Employee("niu",0,"23908423@qq.com",2));
-//        employeeMapper.insert(new Employee("huang",1,"777723@123.com",2));
-//        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
-//        for (int i = 0; i < 200; i++) {
-//            String s = UUID.randomUUID().toString().substring(0, 6);
-//            mapper.insert(new Employee(s,2,s+"@123.com",2));
-//
-//        }
-//        System.out.println("success");
+        employeeMapper.insert(new Employee("niu",0,"23908423@qq.com",2));
+        employeeMapper.insert(new Employee("huang",1,"777723@123.com",2));
+        EmployeeMapper mapper = sqlSession.getMapper(EmployeeMapper.class);
+        for (int i = 0; i < 200; i++) {
+            String s = UUID.randomUUID().toString().substring(0, 6);
+            mapper.insert(new Employee(s,2,s+"@123.com",2));
+
+        }
+        System.out.println("success");
 
 
     }
